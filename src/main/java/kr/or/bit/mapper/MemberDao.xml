@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.bit.dao.MemberDao">
+
+ <!-- public int insertMember(Member member); -->
+ <insert id="insertMember">
+ 	insert into member_alert(userid, pwd, name)
+ 	values (
+ 		#{userid},
+ 		#{pwd},
+ 		#{name}
+ 	)
+ </insert>
+ 
+ <!-- public List<Member> listMember(); -->
+ <select id="listMember"  resultType="kr.or.bit.dto.Member">
+ 	select userid, pwd, name from member_alert
+ </select>
+ 
+ <!-- public int getmsgcount(String userid); -->
+ <select id="getmsgcount" resultType="int">
+ 	select count(*) from message where m_from = #{userid}
+ </select>
+ 
+ <!-- public int insertMessage(Message message) -->
+ <insert id="insertMessage">
+ 	insert into message(m_to, m_from, msg)
+ 	values(
+ 		#{m_to},
+ 		#{m_from},
+ 		#{msg}
+ 	)
+ </insert>
+ 
+ <!-- public List<Message> listMessage(String userid) -->
+ <select id="listMessage" resultType="kr.or.bit.dto.Message">
+ 	select m_to, m_from, msg, m_check from message where m_from = #{userid}
+ </select>
+ 
+ <!-- public int updateMessage(String userid) -->
+ <update id="updateMessage">
+ 	update message set m_check=1 where m_from = #{userid}
+ </update>
+ 
+</mapper>
